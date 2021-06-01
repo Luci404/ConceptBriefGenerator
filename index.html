@@ -1,1 +1,157 @@
-Hello world
+<!-- TODO: Move the add to list dropdown out of the way and make a simple + button to the right of the title that will show the dropdown when clicked -->
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="sidebar-nav">
+                <img style="user-select: none;" src="images/KhaosSystems.png" alt="">
+
+                <div class="spacer"></div>
+
+                <div class="nav-header">Character Design</div>
+                <div class="divider"></div>
+                <div class="nav-item"><a href="#1">Quick Design (1 hour)</a></div>
+                <div class="nav-item"><a href="#2">Quick Design (4 hours)</a></div>
+                
+                <div class="spacer"></div>
+
+                <div class="nav-header">Environment Design</div>
+                <div class="divider"></div>
+                <div class="nav-item"><a href="#1">Quick Design (1 hour)</a></div>
+                <div class="nav-item"><a href="#2">Quick Design (4 hours)</a></div>
+
+                <div class="spacer"></div>
+
+                <div class="nav-header">Collection List</div>
+                <div class="divider"></div> 
+                <div id="collection-list">
+                    
+                </div>
+            </div>
+
+        </div>
+        <div class="main">
+            <div class="header">Character Design / Quick Design (1 hour)</div>
+            <div class="spacer"></div>
+            <div class="card">
+                <div> // Options</div>
+                <div class="divider"></div>
+                <div id="CollectionListContainer"></div>
+            </div>
+            <div class="spacer"></div>
+            <a class="button" onclick="GenerateCharacter()">Generate Brief</a>
+            <div class="spacer"></div>
+
+            <div id="brief"></div>
+        </div>
+
+        <script src="javascript/utility.js"></script>
+        <script src="javascript/data.js"></script>
+
+        <script>
+            {
+                var CollectionListHTML = "";
+                GetAllCollections().forEach(CollectionRef => {CollectionListHTML += `<div class="nav-text">${CollectionRef.CollectionName} | ${CollectionRef.UniqueIdentifier} </div>`});
+                document.getElementById("collection-list").innerHTML = CollectionListHTML;
+            }
+        </script>
+
+        <script>
+            // TODO: remove existing collections don't show in dropdown
+            function AddCollectionToCollectionList(name, uid)
+            {
+                if (!uid) return;
+                existingCollections = JSON.parse(document.getElementById(name).dataset.collections);
+                if (existingCollections.indexOf(uid) === -1) existingCollections.push(uid)
+                document.getElementById(name).dataset.collections = JSON.stringify(existingCollections);
+                UpdateCollectionList(name);
+                UpdateCollectionSelect(name);
+            }
+
+            function RemoveCollectionFromCollectionList(name, uid)
+            {
+                existingCollections = JSON.parse(document.getElementById(name).dataset.collections);
+                var index = existingCollections.indexOf(uid);
+                if (index !== -1) { existingCollections.splice(index, 1);}
+                document.getElementById(name).dataset.collections = JSON.stringify(existingCollections);
+                UpdateCollectionList(name);
+                UpdateCollectionSelect(name);
+            }
+
+            function UpdateCollectionList(name)
+            {
+                ListElements = "";
+                collectionsUIDs = JSON.parse(document.getElementById(name).dataset.collections);
+                collectionsUIDs.forEach(uid => {
+                    ListElements += `<div>${GetCollectionNameByUID(uid)} - <a class="button" onclick="RemoveCollectionFromCollectionList('${name}', '${uid}')">remove</a></div>`
+                });
+                document.getElementById(`${name}-list`).innerHTML = ListElements;
+            }
+
+            function UpdateCollectionSelect(name)
+            {
+                var SelectOptions = ""
+                existingCollectionsUIDs = JSON.parse(document.getElementById(name).dataset.collections);
+                category = document.getElementById(name).dataset.category
+
+                GetAllCollections().forEach(collenctionRef => {
+                    if (existingCollectionsUIDs.indexOf(collenctionRef.UniqueIdentifier) === -1)
+                    {
+                        if (category == "All" || collenctionRef.Category == category)
+                            SelectOptions += `<option value="${collenctionRef.UniqueIdentifier}">${collenctionRef.CollectionName}</option>`
+                    }
+                })
+
+                document.getElementById(`${name}-select`).innerHTML = SelectOptions;
+            }
+
+            function MakeCollectionList(e, name, category = "All")
+            {
+                e.innerHTML += `
+                <div class="card collection-list" id="${name}" data-collections='[]' data-category="${category}">
+                    <div>
+                        <div><b>${name}</b> | 
+                            <select name="" id="${name}-select"></select>
+                            <a class="button" onclick="AddCollectionToCollectionList('${name}', document.getElementById('${name}-select').value)">add to list</a> 
+                        </div>
+                    </div>
+                    <div class="small-spacer"></div>
+                    <div class="divider"></div>
+                    <div id="${name}-list"></div>
+                </div>`
+
+                UpdateCollectionSelect(name)
+            }
+        
+            function GetRandomWordFromCollectionList(name)
+            {
+                // TODO: This is currenly not truely random since the collections are chosen firt, that means if collection A has inf. many datapoints,
+                // while collection B has only one. The one datapoint in collection B will stil be chosen 50% of the times. 
+                collectionsUIDs = JSON.parse(document.getElementById(name).dataset.collections)
+                if (collectionsUIDs.length > 0) {
+                    return GetRandomWordFromCollection(UitilyLib.GetRandomItemFromList(collectionsUIDs))
+                }
+
+                return "No word was found!"
+            }
+
+            MakeCollectionList(document.getElementById("CollectionListContainer"), "Profession", "Professions")
+            AddCollectionToCollectionList("Profession", "0014")
+            MakeCollectionList(document.getElementById("CollectionListContainer"), "Age", "Age")
+            AddCollectionToCollectionList("Age", "0002")
+        </script>
+
+        <script>
+            function GenerateCharacter() {
+                document.getElementById("brief").innerHTML = `
+                    Race: ${GetRandomWordFromCollectionList("Profession")} <br>
+                    Age: ${GetRandomWordFromCollectionList("Age")}`
+            }
+
+        </script>
+    </body>
+</html>

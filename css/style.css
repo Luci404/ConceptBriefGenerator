@@ -1,0 +1,179 @@
+:root {
+    --color-primary: #f3544d;
+    --color-background: #151515;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-gray: #999;
+    --color-darkgray: #222;
+}
+
+@font-face {
+    font-family: "consolas";
+    src: url("../fonts/Consolas.ttf");
+}
+
+* {
+    font-family: consolas;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-background);
+    float: left;
+    color: var(--color-gray);
+}
+
+.sidebar {
+    position:absolute;
+    width: 270px;
+    height: 100%;
+    background-color: var(--color-black);
+}
+
+.sidebar .sidebar-nav
+{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    padding-right: 15px;
+}
+
+.sidebar-nav .nav-header {
+    color: var(--color-white);
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.nav-header:before {
+    content: "> ";
+}
+
+.sidebar-nav .nav-text {
+    color: var(--color-gray);
+    margin-left: 5px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+    user-select: none;
+}
+
+
+.nav-text:before {
+    content: "";
+    margin-right: 8px;
+    border-left: 1px solid;
+    border-color: var(--color-darkgray);
+}
+
+.sidebar-nav .nav-item {
+    color: var(--color-gray);
+    margin-left: 5px;
+    line-height: 1.2;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.sidebar-nav .nav-item:hover {
+    color: var(--color-white);
+    margin-left: 5px;
+}
+
+.nav-item:before {
+    content: "";
+    margin-right: 8px;
+    border-left: 1px solid;
+    border-color: var(--color-darkgray);
+}
+
+.nav-item a {
+    color: inherit;
+    text-decoration: none; /* no underline */
+}
+
+.main {
+    position:absolute;
+    color: var(--color-gray);
+    width: calc(100% - 270px);
+    height: 100%;
+    margin-left: 270px;
+    top: 0;
+    padding: 50px 80px;
+}
+
+.main .header
+{
+    text-align: center;
+    font-size: 36px;
+    user-select: none;
+}
+
+.main .card
+{
+    border: 1px solid;
+    border-radius: 10px;
+    border-color: var(--color-darkgray);
+    width: 100%;
+    padding: 5px 10px;
+    overflow: hidden;
+}
+
+.button {
+    user-select: none;
+    text-align: center;
+    color: var(--color-gray);
+}
+
+.button:hover {
+    color: var(--color-white);
+}
+
+.spacer {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.small-spacer {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.divider {
+    width: 100%;
+    border-top: 1px solid;
+    border-color: var(--color-darkgray);
+}
+
+.collection-list
+{
+    margin: 10px;
+    float: left;
+    width: calc(50% - 20px) !important;   
+}
+
+@media (max-width: 1200px) {
+    .collection-list
+    {
+        margin: 10px;
+        float: left;
+        width: calc(100% - 20px) !important;   
+    }
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+}
+
+.collection-list select {
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+    line-height: 1;
+    border-radius: 2px;
+    border: 0px;
+    background-color: var(--color-darkgray);
+    color:var(--color-gray)
+}
