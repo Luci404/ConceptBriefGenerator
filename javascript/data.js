@@ -27,25 +27,129 @@ function GetCollectionNameByUID(uid)
 }
 
 const Collections = [
+    /// Gender
     { // Genders
         Reference: {
             UniqueIdentifier: "0000",
-            CollectionName: "Genders"
+            CollectionName: "Genders",
+            Category: "Genders"
+
         },
         Data: [
             "Male", 
             "Female"
         ]
     },
+
+    /// Race
+    //https://d-n-d5e.fandom.com/wiki/Races
     { // Races
         Reference: {
             UniqueIdentifier: "0001",
-            CollectionName: "Races"
+            CollectionName: "Races",
+            Category: "Races"
         },
         Data: [
             "Human",
         ]
     },
+    { // DnD Base (Player's Handbook) Races
+        Reference: {
+            UniqueIdentifier: "0024",
+            CollectionName: "DnD Base (Player's Handbook) Races",
+            Category: "Races"
+        },
+        Data: [
+            "Dragonborn",
+            "Dwarf",
+            "Elf",
+            "Gnome",
+            "Half-Elf",
+            "Halfling",
+            "Half-Orc",
+            "Human",
+            "Tiefling",
+        ]
+    },
+    { // DnD Elemental Evil's Races
+        Reference: {
+            UniqueIdentifier: "0025",
+            CollectionName: "DnD Elemental Evil's Races",
+            Category: "Races"
+        },
+        Data: [
+            "Aarakocra",
+            "Genasi",
+            "Goliath",
+        ]
+    },
+    { // DnD Eberron Races
+        Reference: {
+            UniqueIdentifier: "0026",
+            CollectionName: "DnD Eberron Races",
+            Category: "Races"
+        },
+        Data: [
+            "Changeling",
+            "Kalashtar",
+            "Shifter",
+            "Warforged",
+        ]
+    },
+    { // DnD Guildmater's Guide Races
+        Reference: {
+            UniqueIdentifier: "0027",
+            CollectionName: "DnD Guildmater's Guide Races",
+            Category: "Races"
+        },
+        Data: [
+            "Centaur",
+            "Loxodon",
+            "Minotaur",
+            "Simic Hybrid",
+            "Vedalken",
+        ]
+    },
+    { // DnD Plane Shifts
+        Reference: {
+            UniqueIdentifier: "0028",
+            CollectionName: "DnD Plane Shifts",
+            Category: "Races"
+        },
+        Data: [
+            "Aetherborn",
+            "Aven",
+            "Khenra",
+            "Kor",
+            "Merfolk",
+            "Naga",
+            "Siren",
+            "Vampire",
+        ]
+    },
+    { // DnD Volo's Guide Races
+        Reference: {
+            UniqueIdentifier: "0029",
+            CollectionName: "DnD Eberron Races",
+            Category: "Races"
+        },
+        Data: [
+            "Aasimar",
+            "Bugbear",
+            "Firbolg",
+            "Goblin",
+            "Hobgoblin",
+            "Kenku",
+            "Kobold",
+            "Lizardfolk",
+            "Orc",
+            "Tabaxi",
+            "Triton",
+            "Yuan-ti Pureblood",
+        ]
+    },
+
+    /// Age
     { // Age Groups
         Reference: {
             UniqueIdentifier: "0002",
@@ -62,7 +166,7 @@ const Collections = [
     },
     { // Child (0-12)
         Reference: {
-            UniqueIdentifier: "0018",
+            UniqueIdentifier: "0023",
             CollectionName: "Child (0-12)",
             Category: "Age"
         },
@@ -101,9 +205,7 @@ const Collections = [
         Data: UitilyLib.ArrayWithNumbersFromMinToMax(75, 110)
     },
     
-    
-
-    // PROFESSIONS
+    // Professions
     // https://drive.google.com/file/d/116ybB5daRqYdQNOKn-xzhqJ-uWNvqATe/view
     { // Agriculture, Anumal husbandry & forestry professions
         Reference: {
@@ -679,6 +781,67 @@ const Collections = [
             "Urchin",
             "Vagabond",
         ]
+    },
+
+    // TimePeriods 
+    { // The Technology Periods
+        Reference: {
+            UniqueIdentifier: "0030",
+            CollectionName: "The Technology Periods (Prehistory-Information Age)",
+            Category: "TimePeriods"
+        },
+        Data: [
+            // Prehistory
+            "Paleolithic",
+            "Mesolithic",
+            "Neolithic",
+            "Chalcolithic/Eneolithic",
+            // Ancient History
+            "Bronze Age",
+            "Iron Age",
+            // Late Middle Ages
+            "Renaissance",
+            // Early Modern history
+            "Early Modern Period",
+            // Modern History
+            "Industrial Age (1760-1970)",
+            "Machine Age (1880–1945)",
+            "Atomic Age (1945/1950–present)",
+            "Space Age (1957–present)",
+            "Information Age (1970–present)",
+        ]
+    },
+    { // Japanese Periods
+        Reference: {
+            UniqueIdentifier: "0031",
+            CollectionName: "Japanese Periods",
+            Category: "TimePeriods"
+        },
+        Data: [
+            "Jōmon period (10,501 BCE - 400 BCE)",
+            "Yayoi period (450 BCE - 250 CE)",
+            "Kofun period (250-600)",
+            "Asuka period (643-710)",
+            "Nara period (743-794)",
+            "Heian period (795-1185)",
+            "Kamakura period (1185-1333)",
+            "Muromachi period (1333-1573)",
+            "Azuchi–Momoyama period (1573-1603)",
+            "Tokugawa shogunate (1603-1868)",
+            "Meiji period (1868-1912)",
+            "Taishō period (1912-1926)",
+            "Shōwa period (1926-1989)",
+            "Heisei period (1989-2019)",
+            "Reiwa period (2019-present)",
+        ]
+    },
+    { // Year Number (1100-1800)
+        Reference: {
+            UniqueIdentifier: "0033",
+            CollectionName: "Post-classical (year number) (500-1500)",
+            Category: "TimePeriods"
+        },
+        Data: UitilyLib.ArrayWithNumbersFromMinToMax(500, 1500)
     },
 ]
 

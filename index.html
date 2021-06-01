@@ -141,15 +141,31 @@
 
             MakeCollectionList(document.getElementById("CollectionListContainer"), "Profession", "Professions")
             AddCollectionToCollectionList("Profession", "0014")
+
             MakeCollectionList(document.getElementById("CollectionListContainer"), "Age", "Age")
             AddCollectionToCollectionList("Age", "0002")
+
+            MakeCollectionList(document.getElementById("CollectionListContainer"), "Race", "Races")
+            AddCollectionToCollectionList("Race", "0001")
+            AddCollectionToCollectionList("Race", "0024")
+
+            MakeCollectionList(document.getElementById("CollectionListContainer"), "Gender", "Gender")
+            AddCollectionToCollectionList("Gender", "0000")
+
+            MakeCollectionList(document.getElementById("CollectionListContainer"), "Time Period", "TimePeriods")
+            AddCollectionToCollectionList("Time Period", "0030")
+
         </script>
 
         <script>
             function GenerateCharacter() {
                 document.getElementById("brief").innerHTML = `
-                    Race: ${GetRandomWordFromCollectionList("Profession")} <br>
-                    Age: ${GetRandomWordFromCollectionList("Age")}`
+                    Profession: ${GetRandomWordFromCollectionList("Profession")} <br>
+                    Race: ${GetRandomWordFromCollectionList("Race")} <br>
+                    Age: ${GetRandomWordFromCollectionList("Age")} <br>
+                    Gender: ${GetRandomWordFromCollectionList("Gender")} <br>
+                    Time Period: ${GetRandomWordFromCollectionList("Time Period")}`
+
             }
 
         </script>
