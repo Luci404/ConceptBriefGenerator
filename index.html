@@ -4,6 +4,9 @@
     <head>
         <link rel="stylesheet" type="text/css" href="css/reset.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <!-- Font Awesome -->
+        <link href="vendor/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet"> <!--load all styles -->
     </head>
     <body>
         <div class="sidebar">
@@ -30,6 +33,7 @@
                 <div class="divider"></div> 
                 <div id="collection-list">
                     
+                    
                 </div>
             </div>
 
@@ -47,6 +51,12 @@
             <div class="spacer"></div>
 
             <div id="brief"></div>
+
+            <i class="fas fa-user"></i> <!-- uses solid style -->
+            <i class="far fa-user"></i> <!-- uses regular style -->
+            <i class="fal fa-user"></i> <!-- uses light style -->
+            <!--brand icon-->
+            <i class="fab fa-github-square"></i> <!-- uses brands style -->
         </div>
 
         <script src="javascript/utility.js"></script>
@@ -114,7 +124,8 @@
                 e.innerHTML += `
                 <div class="card collection-list" id="${name}" data-collections='[]' data-category="${category}">
                     <div>
-                        <div><b>${name}</b> | 
+                        <div>
+                            <b>${name}</b> | 
                             <select name="" id="${name}-select"></select>
                             <a class="button" onclick="AddCollectionToCollectionList('${name}', document.getElementById('${name}-select').value)">add to list</a> 
                         </div>
@@ -149,7 +160,7 @@
             AddCollectionToCollectionList("Race", "0001")
             AddCollectionToCollectionList("Race", "0024")
 
-            MakeCollectionList(document.getElementById("CollectionListContainer"), "Gender", "Gender")
+            MakeCollectionList(document.getElementById("CollectionListContainer"), "Gender", "Genders")
             AddCollectionToCollectionList("Gender", "0000")
 
             MakeCollectionList(document.getElementById("CollectionListContainer"), "Time Period", "TimePeriods")
