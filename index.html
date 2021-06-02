@@ -2,13 +2,38 @@
 
 <html>
     <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+
         <link rel="stylesheet" type="text/css" href="css/reset.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <style>
+            /* TODO: Masonry is "falling" right, should be left*/
+            .masonry {
+              column-count: 2;
+              column-gap: 0px;
+            }
+        
+            .brick {
+              padding: 5px 5px;
+              margin: 0;
+              display: grid;
+              grid-template-rows: 1fr auto;
+              break-inside: avoid;
+            }
+            
+            /* Masonry on large screens */
+            @media only screen and (max-width: 1400px) {
+              .masonry { column-count: 1; }
+            }
+        </style>
 
         <!-- Font Awesome -->
         <link href="vendor/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet"> <!--load all styles -->
     </head>
     <body>
+    
         <div class="sidebar">
             <div class="sidebar-nav">
                 <img style="user-select: none;" src="images/KhaosSystems.png" alt="">
@@ -33,7 +58,6 @@
                 <div class="divider"></div> 
                 <div id="collection-list">
                     
-                    
                 </div>
             </div>
 
@@ -44,19 +68,20 @@
             <div class="card">
                 <div> // Options</div>
                 <div class="divider"></div>
-                <div id="CollectionListContainer"></div>
+                <div class="small-spacer"></div>
+                <div class="masonry" id="CollectionListContainer"></div>
+                <div class="small-spacer"></div>
             </div>
             <div class="spacer"></div>
-            <a class="button" onclick="GenerateCharacter()">Generate Brief</a>
+           
             <div class="spacer"></div>
 
-            <div id="brief"></div>
-
-            <i class="fas fa-user"></i> <!-- uses solid style -->
-            <i class="far fa-user"></i> <!-- uses regular style -->
-            <i class="fal fa-user"></i> <!-- uses light style -->
-            <!--brand icon-->
-            <i class="fab fa-github-square"></i> <!-- uses brands style -->
+            <div class="card">
+                <div> // Brief |  <a class="button" onclick="GenerateCharacter()">Generate Brief</a></div>
+                <div class="divider"></div>
+                <div class="small-spacer"></div>
+                <div id="brief"></div>
+            </div>
         </div>
 
         <script src="javascript/utility.js"></script>
@@ -71,7 +96,45 @@
         </script>
 
         <script>
-            // TODO: remove existing collections don't show in dropdown
+            const CollectionLists = [
+                {
+                    name: "Profession",
+                    category: "Professions",
+                    collectionIds: [
+                        "0014"
+                    ]
+                },
+                {
+                    name: "Age",
+                    category: "Age",
+                    collectionIds: [
+                        "0002"
+                    ]
+                },
+                {
+                    name: "Race",
+                    category: "Races",
+                    collectionIds: [
+                        "0001",
+                        "0024"
+                    ]
+                },
+                {
+                    name: "Gender",
+                    category: "Genders",
+                    collectionIds: [
+                        "0000"
+                    ]
+                },
+                {
+                    name: "Time Period",
+                    category: "TimePeriods",
+                    collectionIds: [
+                        "0030"
+                    ]
+                }
+            ]
+
             function AddCollectionToCollectionList(name, uid)
             {
                 if (!uid) return;
@@ -122,17 +185,19 @@
             function MakeCollectionList(e, name, category = "All")
             {
                 e.innerHTML += `
-                <div class="card collection-list" id="${name}" data-collections='[]' data-category="${category}">
-                    <div>
+                <div class="brick">
+                    <div class="card" id="${name}" data-collections='[]' data-category="${category}">
                         <div>
-                            <b>${name}</b> | 
-                            <select name="" id="${name}-select"></select>
-                            <a class="button" onclick="AddCollectionToCollectionList('${name}', document.getElementById('${name}-select').value)">add to list</a> 
+                            <div>
+                                <b>${name}</b> | 
+                                <select name="" id="${name}-select"></select>
+                                <a class="button" onclick="AddCollectionToCollectionList('${name}', document.getElementById('${name}-select').value)">add to list</a> 
+                            </div>
                         </div>
+                        <div class="small-spacer"></div>
+                        <div class="divider"></div>
+                        <div id="${name}-list"></div>
                     </div>
-                    <div class="small-spacer"></div>
-                    <div class="divider"></div>
-                    <div id="${name}-list"></div>
                 </div>`
 
                 UpdateCollectionSelect(name)
@@ -150,22 +215,16 @@
                 return "No word was found!"
             }
 
-            MakeCollectionList(document.getElementById("CollectionListContainer"), "Profession", "Professions")
-            AddCollectionToCollectionList("Profession", "0014")
+            function DeserializeArray(array) {
+                array.forEach(collection => {
+                    MakeCollectionList(document.getElementById("CollectionListContainer"), collection.name, collection.category)
+                    collection.collectionIds.forEach(collectionId => {
+                        AddCollectionToCollectionList(collection.name, collectionId)
+                    });
+                });
+            }
 
-            MakeCollectionList(document.getElementById("CollectionListContainer"), "Age", "Age")
-            AddCollectionToCollectionList("Age", "0002")
-
-            MakeCollectionList(document.getElementById("CollectionListContainer"), "Race", "Races")
-            AddCollectionToCollectionList("Race", "0001")
-            AddCollectionToCollectionList("Race", "0024")
-
-            MakeCollectionList(document.getElementById("CollectionListContainer"), "Gender", "Genders")
-            AddCollectionToCollectionList("Gender", "0000")
-
-            MakeCollectionList(document.getElementById("CollectionListContainer"), "Time Period", "TimePeriods")
-            AddCollectionToCollectionList("Time Period", "0030")
-
+            DeserializeArray(CollectionLists)
         </script>
 
         <script>

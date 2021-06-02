@@ -148,24 +148,7 @@ body {
     border-color: var(--color-darkgray);
 }
 
-.collection-list
-{
-    margin: 10px;
-    float: left;
-    width: calc(50% - 20px) !important;   
-}
-
-@media (max-width: 1200px) {
-    .collection-list
-    {
-        margin: 10px;
-        float: left;
-        width: calc(100% - 20px) !important;   
-    }
-    /* CSS that should be displayed if width is equal to or less than 800px goes here */
-}
-
-.collection-list select {
+select {
     max-width: 200px;
     text-overflow: ellipsis;
     white-space: nowrap; 
