@@ -6,7 +6,7 @@
         <title>Concept Art Brief Generator - Khaos Systems</title>
         <meta name="description" content="A tool used to generate concept art briefs, this can ether be used to assist in the design process or as an exercise to train the ability to design from a concept brief.">
         <meta name="google-site-verification" content="KtxLZyb-vJ9uRa6XezQrfDWH7AQul_p_jU8TeOk1F2g" />
-        {%- seo -%}
+
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
         <meta content="utf-8" http-equiv="encoding">
 
@@ -107,14 +107,22 @@
                     category: "Professions",
                     collectionIds: [
                         "0014"
-                    ]
+                    ],
+                    runtime: {
+                        locked: false,
+                        lastResult: ""
+                    }
                 },
                 {
                     name: "Age",
                     category: "Age",
                     collectionIds: [
                         "0002"
-                    ]
+                    ],
+                    runtime: {
+                        locked: false,
+                        lastResult: ""
+                    }
                 },
                 {
                     name: "Race",
@@ -122,21 +130,33 @@
                     collectionIds: [
                         "0001",
                         "0024"
-                    ]
+                    ],
+                    runtime: {
+                        locked: false,
+                        lastResult: ""
+                    }
                 },
                 {
                     name: "Gender",
                     category: "Genders",
                     collectionIds: [
                         "0000"
-                    ]
+                    ],
+                    runtime: {
+                        locked: false,
+                        lastResult: ""
+                    }
                 },
                 {
                     name: "Time Period",
                     category: "TimePeriods",
                     collectionIds: [
                         "0030"
-                    ]
+                    ],
+                    runtime: {
+                        locked: false,
+                        lastResult: ""
+                    }
                 }
             ]
 
@@ -226,6 +246,7 @@
                     collection.collectionIds.forEach(collectionId => {
                         AddCollectionToCollectionList(collection.name, collectionId)
                     });
+                    collection.runtime.lastResult = GetRandomWordFromCollectionList(collection.name)
                 });
             }
 
@@ -233,14 +254,23 @@
         </script>
 
         <script>
-            function GenerateCharacter() {
-                document.getElementById("brief").innerHTML = `
-                    Profession: ${GetRandomWordFromCollectionList("Profession")} <br>
-                    Race: ${GetRandomWordFromCollectionList("Race")} <br>
-                    Age: ${GetRandomWordFromCollectionList("Age")} <br>
-                    Gender: ${GetRandomWordFromCollectionList("Gender")} <br>
-                    Time Period: ${GetRandomWordFromCollectionList("Time Period")}`
+            function ReloadBrief() {
+                html = ""
 
+                CollectionLists.forEach((collectionList, index) => {
+                        lockhtml = collectionList.runtime.locked ? `<a onclick="CollectionLists[${index}].runtime.locked = false; ReloadBrief();">Unlock</a>` : `<a onclick="CollectionLists[${index}].runtime.locked = true; ReloadBrief();">Lock</a>` 
+                        html += `${lockhtml} | ${collectionList.name}: ${collectionList.runtime.lastResult} <br>`
+                });
+
+                document.getElementById("brief").innerHTML = html
+            }
+
+            function GenerateCharacter() {
+                CollectionLists.forEach((collectionList, index) => {
+                        collectionList.runtime.lastResult = collectionList.runtime.locked ? collectionList.runtime.lastResult : GetRandomWordFromCollectionList(collectionList.name)
+                });
+
+                ReloadBrief()
             }
 
         </script>
